@@ -30,7 +30,12 @@ class TextEncoder256(nn.Module):
         if f0 is True:
             self.emb_pitch = nn.Embedding(256, hidden_channels)  # pitch 256
         self.encoder = attentions.Encoder(
-            hidden_channels, filter_channels, n_heads, n_layers, kernel_size, p_dropout  # NOQA
+            hidden_channels,
+            filter_channels,
+            n_heads,
+            n_layers,
+            kernel_size,
+            p_dropout,  # NOQA
         )
         self.proj = nn.Conv1d(hidden_channels, out_channels * 2, 1)
 
@@ -42,7 +47,9 @@ class TextEncoder256(nn.Module):
         x = x * math.sqrt(self.hidden_channels)  # [b, t, h]
         x = self.lrelu(x)
         x = torch.transpose(x, 1, -1)  # [b, h, t]
-        x_mask = torch.unsqueeze(commons.sequence_mask(lengths, x.size(2)), 1).to(  # NOQA
+        x_mask = torch.unsqueeze(
+            commons.sequence_mask(lengths, x.size(2)), 1
+        ).to(  # NOQA
             x.dtype
         )
         x = self.encoder(x * x_mask, x_mask)

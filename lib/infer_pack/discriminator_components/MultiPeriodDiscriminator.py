@@ -1,7 +1,11 @@
 import torch
 from torch import nn
-from lib.infer_pack.discriminator_components.DiscriminatorP import DiscriminatorP  # NOQA
-from lib.infer_pack.discriminator_components.DiscriminatorS import DiscriminatorS  # NOQA
+from lib.infer_pack.discriminator_components.DiscriminatorP import (
+    DiscriminatorP,
+)  # NOQA
+from lib.infer_pack.discriminator_components.DiscriminatorS import (
+    DiscriminatorS,
+)  # NOQA
 
 
 class MultiPeriodDiscriminator(torch.nn.Module):
@@ -12,7 +16,8 @@ class MultiPeriodDiscriminator(torch.nn.Module):
 
         discs = [DiscriminatorS(use_spectral_norm=use_spectral_norm)]
         discs = discs + [
-            DiscriminatorP(i, use_spectral_norm=use_spectral_norm) for i in periods  # NOQA
+            DiscriminatorP(i, use_spectral_norm=use_spectral_norm)
+            for i in periods  # NOQA
         ]
         self.discriminators = nn.ModuleList(discs)
 

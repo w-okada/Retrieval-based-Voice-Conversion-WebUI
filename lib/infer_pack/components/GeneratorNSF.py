@@ -53,7 +53,7 @@ class GeneratorNSF(torch.nn.Module):
                 )
             )
             if i + 1 < len(upsample_rates):
-                stride_f0 = np.prod(upsample_rates[i + 1:])
+                stride_f0 = np.prod(upsample_rates[i + 1 :])
                 self.noise_convs.append(
                     Conv1d(
                         1,

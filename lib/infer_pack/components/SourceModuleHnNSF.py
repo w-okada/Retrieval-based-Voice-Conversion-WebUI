@@ -37,7 +37,11 @@ class SourceModuleHnNSF(torch.nn.Module):
         self.is_half = is_half
         # to produce sine waveforms
         self.l_sin_gen = SineGen(
-            sampling_rate, harmonic_num, sine_amp, add_noise_std, voiced_threshod  # NOQA
+            sampling_rate,
+            harmonic_num,
+            sine_amp,
+            add_noise_std,
+            voiced_threshod,  # NOQA
         )
 
         # to merge source harmonics into a single excitation

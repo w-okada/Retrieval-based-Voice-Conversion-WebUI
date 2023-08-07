@@ -8,7 +8,9 @@ from torch.nn.utils import weight_norm, spectral_norm
 
 
 class DiscriminatorP(torch.nn.Module):
-    def __init__(self, period, kernel_size=5, stride=3, use_spectral_norm=False):  # NOQA
+    def __init__(
+        self, period, kernel_size=5, stride=3, use_spectral_norm=False
+    ):  # NOQA
         super(DiscriminatorP, self).__init__()
         self.period = period
         self.use_spectral_norm = use_spectral_norm

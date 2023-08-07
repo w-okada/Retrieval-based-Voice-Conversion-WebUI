@@ -3,7 +3,9 @@ from torch import nn
 from lib.infer_pack import commons
 from lib.infer_pack.components.GeneratorNSF import GeneratorNSF
 from lib.infer_pack.components.PosteriorEncoder import PosteriorEncoder
-from lib.infer_pack.components.ResidualCouplingBlock import ResidualCouplingBlock  # NOQA
+from lib.infer_pack.components.ResidualCouplingBlock import (
+    ResidualCouplingBlock,
+)  # NOQA
 from lib.infer_pack.components.TextEncoder256 import TextEncoder256
 
 
@@ -92,7 +94,9 @@ class SynthesizerTrnMs256NSFsid(nn.Module):
             inter_channels, hidden_channels, 5, 1, 3, gin_channels=gin_channels
         )
         self.emb_g = nn.Embedding(self.spk_embed_dim, gin_channels)
-        print("gin_channels:", gin_channels, "self.spk_embed_dim:", self.spk_embed_dim)  # NOQA
+        print(
+            "gin_channels:", gin_channels, "self.spk_embed_dim:", self.spk_embed_dim
+        )  # NOQA
 
     def remove_weight_norm(self):
         self.dec.remove_weight_norm()
@@ -119,7 +123,9 @@ class SynthesizerTrnMs256NSFsid(nn.Module):
     def infer(self, phone, phone_lengths, pitch, nsff0, sid, rate=None):
         g = self.emb_g(sid).unsqueeze(-1)
         m_p, logs_p, x_mask = self.enc_p(phone, pitch, phone_lengths)
-        z_p = (m_p + torch.exp(logs_p) * torch.randn_like(m_p) * 0.66666) * x_mask  # NOQA
+        z_p = (
+            m_p + torch.exp(logs_p) * torch.randn_like(m_p) * 0.66666
+        ) * x_mask  # NOQA
         if rate:
             head = int(z_p.shape[2] * rate)
             z_p = z_p[:, :, -head:]

@@ -51,20 +51,26 @@ class SineGen(torch.nn.Module):
         """
         with torch.no_grad():
             f0 = f0[:, None].transpose(1, 2)
-            f0_buf = torch.zeros(f0.shape[0], f0.shape[1], self.dim, device=f0.device)  # NOQA
+            f0_buf = torch.zeros(
+                f0.shape[0], f0.shape[1], self.dim, device=f0.device
+            )  # NOQA
             # fundamental component
             f0_buf[:, :, 0] = f0[:, :, 0]
             for idx in np.arange(self.harmonic_num):
                 f0_buf[:, :, idx + 1] = f0_buf[:, :, 0] * (
                     idx + 2
                 )  # idx + 2: the (idx+1)-th overtone, (idx+2)-th harmonic
-            rad_values = (f0_buf / self.sampling_rate) % 1  ###%1意味着n_har的乘积无法后处理优化  # NOQA
+            rad_values = (
+                f0_buf / self.sampling_rate
+            ) % 1  ###%1意味着n_har的乘积无法后处理优化  # NOQA
             rand_ini = torch.rand(
                 f0_buf.shape[0], f0_buf.shape[2], device=f0_buf.device
             )
             rand_ini[:, 0] = 0
             rad_values[:, 0, :] = rad_values[:, 0, :] + rand_ini
-            tmp_over_one = torch.cumsum(rad_values, 1)  # % 1  #####%1意味着后面的cumsum无法再优化  # NOQA
+            tmp_over_one = torch.cumsum(
+                rad_values, 1
+            )  # % 1  #####%1意味着后面的cumsum无法再优化  # NOQA
             tmp_over_one *= upp
             tmp_over_one = F.interpolate(
                 tmp_over_one.transpose(2, 1),
@@ -74,11 +80,11 @@ class SineGen(torch.nn.Module):
             ).transpose(2, 1)
             rad_values = F.interpolate(
                 rad_values.transpose(2, 1), scale_factor=upp, mode="nearest"
-            ).transpose(
-                2, 1
-            )
+            ).transpose(2, 1)
             tmp_over_one %= 1
-            tmp_over_one_idx = (tmp_over_one[:, 1:, :] - tmp_over_one[:, :-1, :]) < 0    # NOQA
+            tmp_over_one_idx = (
+                tmp_over_one[:, 1:, :] - tmp_over_one[:, :-1, :]
+            ) < 0  # NOQA
             cumsum_shift = torch.zeros_like(rad_values)
             cumsum_shift[:, 1:, :] = tmp_over_one_idx * -1.0
             sine_waves = torch.sin(

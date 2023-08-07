@@ -26,11 +26,18 @@ from config import Config
 from fairseq import checkpoint_utils
 from i18n import I18nAuto
 
-from lib.infer_pack.synthesizers.SynthesizerTrnMs256NSFsid import SynthesizerTrnMs256NSFsid
-from lib.infer_pack.synthesizers.SynthesizerTrnMs256NSFsid_nono import SynthesizerTrnMs256NSFsid_nono
-from lib.infer_pack.synthesizers.SynthesizerTrnMs768NSFsid import SynthesizerTrnMs768NSFsid
-from lib.infer_pack.synthesizers.SynthesizerTrnMs768NSFsid_nono import SynthesizerTrnMs768NSFsid_nono
-
+from lib.infer_pack.synthesizers.SynthesizerTrnMs256NSFsid import (
+    SynthesizerTrnMs256NSFsid,
+)
+from lib.infer_pack.synthesizers.SynthesizerTrnMs256NSFsid_nono import (
+    SynthesizerTrnMs256NSFsid_nono,
+)
+from lib.infer_pack.synthesizers.SynthesizerTrnMs768NSFsid import (
+    SynthesizerTrnMs768NSFsid,
+)
+from lib.infer_pack.synthesizers.SynthesizerTrnMs768NSFsid_nono import (
+    SynthesizerTrnMs768NSFsid_nono,
+)
 
 
 from lib.infer_pack.models_onnx import SynthesizerTrnMsNSFsidM

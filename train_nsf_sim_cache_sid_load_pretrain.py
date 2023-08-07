@@ -34,13 +34,25 @@ from lib.train.data_utils import (
 )
 
 if hps.version == "v1":
-    from lib.infer_pack.synthesizers.SynthesizerTrnMs256NSFsid import SynthesizerTrnMs256NSFsid as RVC_Model_f0
-    from lib.infer_pack.synthesizers.SynthesizerTrnMs256NSFsid_nono import SynthesizerTrnMs256NSFsid_nono as RVC_Model_nof0
-    from lib.infer_pack.discriminator_components.MultiPeriodDiscriminator import MultiPeriodDiscriminator as MultiPeriodDiscriminator
+    from lib.infer_pack.synthesizers.SynthesizerTrnMs256NSFsid import (
+        SynthesizerTrnMs256NSFsid as RVC_Model_f0,
+    )
+    from lib.infer_pack.synthesizers.SynthesizerTrnMs256NSFsid_nono import (
+        SynthesizerTrnMs256NSFsid_nono as RVC_Model_nof0,
+    )
+    from lib.infer_pack.discriminator_components.MultiPeriodDiscriminator import (
+        MultiPeriodDiscriminator as MultiPeriodDiscriminator,
+    )
 else:
-    from lib.infer_pack.synthesizers.SynthesizerTrnMs768NSFsid import SynthesizerTrnMs768NSFsid as RVC_Model_f0
-    from lib.infer_pack.synthesizers.SynthesizerTrnMs768NSFsid_nono import SynthesizerTrnMs768NSFsid_nono as RVC_Model_nof0
-    from lib.infer_pack.discriminator_components.MultiPeriodDiscriminatorV2 import MultiPeriodDiscriminatorV2 as MultiPeriodDiscriminator
+    from lib.infer_pack.synthesizers.SynthesizerTrnMs768NSFsid import (
+        SynthesizerTrnMs768NSFsid as RVC_Model_f0,
+    )
+    from lib.infer_pack.synthesizers.SynthesizerTrnMs768NSFsid_nono import (
+        SynthesizerTrnMs768NSFsid_nono as RVC_Model_nof0,
+    )
+    from lib.infer_pack.discriminator_components.MultiPeriodDiscriminatorV2 import (
+        MultiPeriodDiscriminatorV2 as MultiPeriodDiscriminator,
+    )
 
 from lib.train.losses import generator_loss, discriminator_loss, feature_loss, kl_loss
 from lib.train.mel_processing import mel_spectrogram_torch, spec_to_mel_torch
