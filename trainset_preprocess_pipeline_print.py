@@ -102,6 +102,7 @@ class PreProcess:
 
     def pipeline_mp(self, infos):
         for path, idx0 in infos:
+            print("-------------------->> ", path, idx0)
             self.pipeline(path, idx0)
 
     def pipeline_mp_inp_dir(self, inp_root, n_p):

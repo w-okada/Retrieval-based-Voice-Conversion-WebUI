@@ -135,6 +135,7 @@ if __name__ == "__main__":
     # n_p=16
     # f = open("%s/log_extract_f0.log"%exp_dir, "w")
     printt(sys.argv)
+    printt("------------dfasfasf")
     featureInput = FeatureInput()
     paths = []
     inp_root = "%s/1_16k_wavs" % (exp_dir)

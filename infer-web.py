@@ -25,12 +25,14 @@ import soundfile as sf
 from config import Config
 from fairseq import checkpoint_utils
 from i18n import I18nAuto
-from lib.infer_pack.models import (
-    SynthesizerTrnMs256NSFsid,
-    SynthesizerTrnMs256NSFsid_nono,
-    SynthesizerTrnMs768NSFsid,
-    SynthesizerTrnMs768NSFsid_nono,
-)
+
+from lib.infer_pack.synthesizers.SynthesizerTrnMs256NSFsid import SynthesizerTrnMs256NSFsid
+from lib.infer_pack.synthesizers.SynthesizerTrnMs256NSFsid_nono import SynthesizerTrnMs256NSFsid_nono
+from lib.infer_pack.synthesizers.SynthesizerTrnMs768NSFsid import SynthesizerTrnMs768NSFsid
+from lib.infer_pack.synthesizers.SynthesizerTrnMs768NSFsid_nono import SynthesizerTrnMs768NSFsid_nono
+
+
+
 from lib.infer_pack.models_onnx import SynthesizerTrnMsNSFsidM
 from infer_uvr5 import _audio_pre_, _audio_pre_new
 from lib.audio import load_audio
@@ -517,6 +519,7 @@ def clean():
 
 
 sr_dict = {
+    "16k": 16000,
     "32k": 32000,
     "40k": 40000,
     "48k": 48000,
@@ -583,6 +586,7 @@ def preprocess_dataset(trainset_dir, exp_dir, sr, n_p):
 
 # but2.click(extract_f0,[gpus6,np7,f0method8,if_f0_3,trainset_dir4],[info2])
 def extract_f0_feature(gpus, n_p, f0method, if_f0, exp_dir, version19, gpus_rmvpe):
+    print("---------------------------- - - - EXTRACT", gpus)
     gpus = gpus.split("-")
     os.makedirs("%s/logs/%s" % (now_dir, exp_dir), exist_ok=True)
     f = open("%s/logs/%s/extract_f0_feature.log" % (now_dir, exp_dir), "w")
@@ -595,7 +599,7 @@ def extract_f0_feature(gpus, n_p, f0method, if_f0, exp_dir, version19, gpus_rmvp
                 n_p,
                 f0method,
             )
-            print(cmd)
+            print(cmd, "-fs-fd-sfs-df-dsf-sdf-")
             p = Popen(
                 cmd, shell=True, cwd=now_dir
             )  # , stdin=PIPE, stdout=PIPE,stderr=PIPE
@@ -1053,6 +1057,7 @@ def train1key(
     version19,
     gpus_rmvpe,
 ):
+    print("-------------------- - - -  - - --  - -Train1key")
     infos = []
 
     def get_info_str(strr):
